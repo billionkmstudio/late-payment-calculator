@@ -355,10 +355,15 @@
   .wl-st { font-size: 11px; color: rgba(255,255,255,0.55); font-family: 'DM Mono', monospace; text-align: center; min-height: 16px; }
 
   /* ── Footer ── */
-  .site-footer { border-top: 1px solid var(--border); padding: 24px; text-align: center; background: var(--white); }
-  .site-footer p { font-size: 12px; color: var(--ink-soft); font-family: 'DM Mono', monospace; }
-  .site-footer a { color: var(--ink); font-weight: 600; text-decoration: none; }
-  .site-footer a:hover { color: var(--accent); }
+  .site-footer { border-top: 1px solid var(--border); padding: 32px 24px; background: var(--white); }
+  .footer-inner { max-width: 1040px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+  .footer-brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; color: var(--ink); display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .footer-brand .logo { width: 24px; height: 24px; border-radius: 4px; object-fit: contain; }
+  .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+  .footer-links a { font-size: 13px; color: var(--ink-soft); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--ink); }
+  .footer-copy { font-size: 12px; color: var(--ink-soft); font-family: 'DM Mono', monospace; }
+  @media (max-width: 640px) { .footer-inner { flex-direction: column; text-align: center; } .footer-links { justify-content: center; } }
   .disclaimer { max-width: 1040px; margin: 0 auto 32px; padding: 0 24px; }
   .disclaimer p {
     font-size: 12px; color: var(--ink-soft); background: var(--amber-light);
@@ -711,7 +716,20 @@
 </div>
 
 <footer class="site-footer">
-  <p>Built with ♥ by <a href="https://billionstudio.co.uk">Billion Studio</a> · Free Tools for UK Freelancers · <a href="https://billionstudio.co.uk/free-tools">See all free tools</a></p>
+  <div class="footer-inner">
+    <a href="https://billionstudio.co.uk" class="footer-brand">
+      <img src="/images/logo.png" alt="Billion Studio" class="logo">
+      Billion Studio
+    </a>
+    <div class="footer-links">
+      <a href="https://billionstudio.co.uk">Home</a>
+      <a href="https://tools.billionstudio.co.uk">Free Tools</a>
+      <a href="mailto:info@billionstudio.app">Contact</a>
+    </div>
+    <div class="footer-copy">
+      © 2026 Billion Studio · Built for UK Small Businesses
+    </div>
+  </div>
 </footer>
 
 <script>
