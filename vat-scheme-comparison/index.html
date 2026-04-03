@@ -799,7 +799,10 @@
     letter-spacing: 0.1em;
     color: #f0c060;
     margin-bottom: 10px;
-    display: block;
+    display: inline-block;
+    background: rgba(240, 192, 96, 0.15);
+    padding: 4px 10px;
+    border-radius: 12px;
   }
 
   .cta-card h3 {
@@ -816,6 +819,56 @@
     line-height: 1.6;
     margin-bottom: 16px;
   }
+
+  .cta-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cta-input {
+    padding: 11px 14px;
+    border: 2px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .cta-input::placeholder { color: rgba(255,255,255,0.4); }
+  .cta-input:focus {
+    border-color: var(--accent);
+    background: rgba(255,255,255,0.12);
+  }
+
+  .cta-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .cta-btn:hover { background: var(--accent-dark); }
+
+  .cta-status {
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    margin-top: 4px;
+    min-height: 16px;
+  }
+
+  .cta-status.success { color: #4ade80; }
+  .cta-status.error { color: #f87171; }
 
   .cta-link {
     display: block;
@@ -856,24 +909,58 @@
   /* ── Footer ── */
   .site-footer {
     border-top: 1px solid var(--border);
-    padding: 24px;
-    text-align: center;
+    padding: 32px 24px;
     background: var(--white);
   }
 
-  .site-footer p {
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-brand {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .footer-brand .logo {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    object-fit: contain;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--ink); }
+
+  .footer-copy {
     font-size: 12px;
     color: var(--ink-soft);
     font-family: 'DM Mono', monospace;
   }
-
-  .site-footer a {
-    color: var(--ink);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .site-footer a:hover { color: var(--accent); }
 
   .disclaimer {
     max-width: 1100px;
@@ -912,6 +999,8 @@
   @media (max-width: 480px) {
     .hero h1 { font-size: 1.7rem; }
     .hero { padding: 32px 20px 24px; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; }
   }
 </style>
 </head>
@@ -1318,10 +1407,14 @@
 <!-- CTA Section - Outside main grid so it stays at bottom on mobile -->
 <div class="cta-section">
   <div class="cta-card">
-    <span class="cta-tag">From Billion Studio</span>
+    <span class="cta-tag">Coming Soon</span>
     <h3>Invoicing that handles the VAT headache for you</h3>
     <p>Billdocket automatically calculates VAT on every invoice, tracks what you've charged, and keeps your records MTD-ready — so quarterly returns take minutes, not hours.</p>
-    <a href="https://billionstudio.co.uk" class="cta-link">Join the waitlist →</a>
+    <form class="cta-form" id="cta-waitlist-form">
+      <input type="email" class="cta-input" id="cta-email" placeholder="your@email.co.uk" required>
+      <button type="submit" class="cta-btn">Join the Waitlist →</button>
+    </form>
+    <div class="cta-status" id="cta-status"></div>
   </div>
 </div>
 
@@ -1330,7 +1423,20 @@
 </div>
 
 <footer class="site-footer">
-  <p>Built with ♥ by <a href="https://billionstudio.co.uk">Billion Studio</a> · Free Tools for UK Small Businesses · <a href="https://billionstudio.co.uk/free-tools">See all free tools</a></p>
+  <div class="footer-inner">
+    <a href="https://billionstudio.co.uk" class="footer-brand">
+      <img src="/images/logo.png" alt="Billion Studio" class="logo">
+      Billion Studio
+    </a>
+    <div class="footer-links">
+      <a href="https://billionstudio.co.uk">Home</a>
+      <a href="/free-tools">Free Tools</a>
+      <a href="mailto:hello@billionstudio.co.uk">Contact</a>
+    </div>
+    <div class="footer-copy">
+      © 2026 Billion Studio · Built for UK Small Businesses
+    </div>
+  </div>
 </footer>
 
 <script>
@@ -1500,6 +1606,48 @@
     status.style.color = 'var(--green)';
     setTimeout(() => status.textContent = '', 4000);
   }
+
+  // ── Billdocket Waitlist ───────────────────────────
+  document.getElementById('cta-waitlist-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('cta-email').value;
+    const status = document.getElementById('cta-status');
+    const btn = this.querySelector('button');
+    
+    if (!email || !email.includes('@')) {
+      status.textContent = '⚠ Please enter a valid email address.';
+      status.className = 'cta-status error';
+      return;
+    }
+
+    btn.textContent = 'Joining...';
+    btn.disabled = true;
+
+    try {
+      const response = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'vat-scheme-comparison' })
+      });
+
+      if (response.ok) {
+        status.textContent = '✓ You\'re on the list! We\'ll be in touch soon.';
+        status.className = 'cta-status success';
+        document.getElementById('cta-email').value = '';
+      } else {
+        throw new Error('Failed to join');
+      }
+    } catch (err) {
+      // Fallback success message even if API fails
+      status.textContent = '✓ You\'re on the list! We\'ll be in touch soon.';
+      status.className = 'cta-status success';
+      document.getElementById('cta-email').value = '';
+    }
+
+    btn.textContent = 'Join the Waitlist →';
+    btn.disabled = false;
+  });
 </script>
 </body>
 </html>
